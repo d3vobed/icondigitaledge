@@ -6,50 +6,25 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "./ui";
 import { cn } from "@/lib/utils";
+import { serviceCategories } from "@/lib/site-data";
 
-const marketingServices = [
-  "Digital Marketing",
-  "Social Media Marketing",
-  "Search Engine Optimisation",
-  "AI Marketing",
-  "Pay Per Click (PPC) Marketing",
-  "Public Relations",
-  "Influencer Marketing",
-  "Content Marketing",
-  "Email & SMS Marketing",
-  "Online Reputation",
+const resources = [
+  { label: "Blog", href: "/blog" },
+  { label: "Testimonials", href: "/testimonials" },
+  { label: "E-books", href: "/e-books" },
+  { label: "Awards & Recognition", href: "/awards-recognition" },
+  { label: "Give Back", href: "/give-back" },
 ];
-const techServices = [
-  "Website Design & Development",
-  "Web & Mobile App Development",
-  "E-commerce Solutions",
-];
-const designServices = ["Brand Design", "Graphic Design", "UX/UI Design", "Video & Animation"];
-const resources = ["Blog", "Testimonials", "E-books", "Awards & Recognition", "Give Back"];
-
-const anchorFor = (label: string) =>
-  "/" +
-  ({
-    "Our Works": "#works",
-    "About Us": "#about",
-    Careers: "#footer",
-    Contact: "#contact",
-    Blog: "#insights",
-    Testimonials: "#testimonials",
-    "E-books": "#insights",
-    "Awards & Recognition": "#awards",
-    "Give Back": "#about",
-  }[label] || "#");
 
 type NavItem = { label: string; href: string; menu?: boolean };
 
 const navItems: NavItem[] = [
-  { label: "Services", href: "#services", menu: true },
-  { label: "Our Works", href: "#works" },
-  { label: "About Us", href: "#about" },
-  { label: "Careers", href: "#footer" },
-  { label: "Resources", href: "#insights", menu: true },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/services", menu: true },
+  { label: "Our Works", href: "/our-works" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Careers", href: "/careers" },
+  { label: "Resources", href: "/blog", menu: true },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -105,22 +80,24 @@ export default function Navbar() {
                       {item.label === "Services" ? (
                         <div className="w-[640px] rounded-2xl border border-white/10 bg-[#0d0d0d] p-7 shadow-2xl shadow-black/60">
                           <div className="grid grid-cols-3 gap-7">
-                            {[
-                              { title: "Marketing", items: marketingServices },
-                              { title: "Technology", items: techServices },
-                              { title: "Design", items: designServices },
-                            ].map((col) => (
-                              <div key={col.title}>
-                                <p className="text-brand text-sm font-semibold mb-4">{col.title}</p>
+                            {serviceCategories.map((col) => (
+                              <div key={col.slug}>
+                                <Link
+                                  href={`/${col.slug}`}
+                                  onClick={() => setOpenMenu(null)}
+                                  className="text-brand text-sm font-semibold mb-4 block hover:text-white transition-colors"
+                                >
+                                  {col.label}
+                                </Link>
                                 <ul className="space-y-2.5">
                                   {col.items.map((s) => (
-                                    <li key={s}>
+                                    <li key={s.slug}>
                                       <Link
-                                        href="#services"
+                                        href={`/services/${s.slug}`}
                                         onClick={() => setOpenMenu(null)}
                                         className="text-[13.5px] leading-snug text-white/75 hover:text-brand transition-colors"
                                       >
-                                        {s}
+                                        {s.name}
                                       </Link>
                                     </li>
                                   ))}
@@ -133,13 +110,13 @@ export default function Navbar() {
                         <div className="w-56 rounded-2xl border border-white/10 bg-[#0d0d0d] p-3 shadow-2xl shadow-black/60">
                           <ul>
                             {resources.map((r) => (
-                              <li key={r}>
+                              <li key={r.label}>
                                 <Link
-                                  href={anchorFor(r)}
+                                  href={r.href}
                                   onClick={() => setOpenMenu(null)}
                                   className="block rounded-lg px-4 py-2.5 text-[14px] text-white/80 hover:bg-white/5 hover:text-brand transition-colors"
                                 >
-                                  {r}
+                                  {r.label}
                                 </Link>
                               </li>
                             ))}
@@ -164,7 +141,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           <Link
-            href="#contact"
+            href="/contact"
             className="hidden sm:inline-flex rounded-full bg-brand px-7 py-3.5 text-[15px] font-medium text-white transition-all hover:bg-brand-dark hover:-translate-y-0.5"
           >
             Work With Us
@@ -202,22 +179,24 @@ export default function Navbar() {
                       <div className="pb-3 pl-4">
                         {item.label === "Services" ? (
                           <div className="space-y-4">
-                            {[
-                              { title: "Marketing", items: marketingServices },
-                              { title: "Technology", items: techServices },
-                              { title: "Design", items: designServices },
-                            ].map((col) => (
-                              <div key={col.title}>
-                                <p className="text-brand text-xs font-semibold uppercase tracking-wider mb-2">{col.title}</p>
+                            {serviceCategories.map((col) => (
+                              <div key={col.slug}>
+                                <Link
+                                  href={`/${col.slug}`}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="text-brand text-xs font-semibold uppercase tracking-wider mb-2 block"
+                                >
+                                  {col.label}
+                                </Link>
                                 <ul className="space-y-1">
                                   {col.items.map((s) => (
-                                    <li key={s}>
+                                    <li key={s.slug}>
                                       <Link
-                                        href="#services"
+                                        href={`/services/${s.slug}`}
                                         onClick={() => setMobileOpen(false)}
                                         className="block py-1 text-[15px] text-white/70"
                                       >
-                                        {s}
+                                        {s.name}
                                       </Link>
                                     </li>
                                   ))}
@@ -228,13 +207,13 @@ export default function Navbar() {
                         ) : (
                           <ul className="space-y-1">
                             {resources.map((r) => (
-                              <li key={r}>
+                              <li key={r.label}>
                                 <Link
-                                  href={anchorFor(r)}
+                                  href={r.href}
                                   onClick={() => setMobileOpen(false)}
                                   className="block py-1 text-[15px] text-white/70"
                                 >
-                                  {r}
+                                  {r.label}
                                 </Link>
                               </li>
                             ))}
@@ -254,7 +233,7 @@ export default function Navbar() {
                 </div>
               ))}
               <Link
-                href="#contact"
+                href="/contact"
                 onClick={() => setMobileOpen(false)}
                 className="mt-4 block rounded-full bg-brand px-7 py-3.5 text-center text-[15px] font-medium text-white"
               >

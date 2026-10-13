@@ -3,39 +3,39 @@ import Link from "next/link";
 import { Logo } from "./ui";
 
 const company = [
-  { label: "About", href: "#about" },
-  { label: "Portfolio", href: "#works" },
-  { label: "Blog", href: "#insights" },
-  { label: "Careers", href: "#footer", hiring: true },
-  { label: "Internship program", href: "#footer" },
-  { label: "Locations", href: "#footer" },
+  { label: "About", href: "/about-us" },
+  { label: "Portfolio", href: "/our-works" },
+  { label: "Blog", href: "/blog" },
+  { label: "Careers", href: "/careers", hiring: true },
+  { label: "Internship program", href: "/careers" },
+  { label: "Locations", href: "/locations" },
 ];
 
 const services = [
-  { label: "Marketing", href: "#services" },
-  { label: "Technology", href: "#services" },
-  { label: "Design", href: "#services" },
+  { label: "Marketing", href: "/marketing" },
+  { label: "Technology", href: "/technology" },
+  { label: "Design", href: "/design" },
 ];
 
 const industries = [
-  "Technology",
-  "Real Estate",
-  "Finance",
-  "Health",
-  "Nonprofits",
-  "Education",
-  "Transportation",
-  "Cryptocurrency",
-  "Web 3.0",
+  { label: "Technology", slug: "technology" },
+  { label: "Real Estate", slug: "real-estate" },
+  { label: "Finance", slug: "finance" },
+  { label: "Health", slug: "health" },
+  { label: "Nonprofits", slug: "nonprofits" },
+  { label: "Education", slug: "education" },
+  { label: "Transportation", slug: "transportation" },
+  { label: "Cryptocurrency", slug: "cryptocurrency" },
+  { label: "Web 3.0", slug: "web-3" },
 ];
 
 const locations = [
-  { label: "USA", flag: "/images/flags/us.png" },
-  { label: "UK", flag: "/images/flags/gb.png" },
-  { label: "Canada", flag: "/images/flags/ca.png" },
-  { label: "Nigeria", flag: "/images/flags/ng.png" },
-  { label: "Ghana", flag: "/images/flags/gh.png" },
-  { label: "Kenya", flag: "/images/flags/ke.png" },
+  { label: "USA", flag: "/images/flags/us.png", href: "/locations/usa" },
+  { label: "UK", flag: "/images/flags/gb.png", href: "/locations/uk" },
+  { label: "Canada", flag: "/images/flags/ca.png", href: "/locations/canada" },
+  { label: "Nigeria", flag: "/images/flags/ng.png", href: "/locations/nigeria" },
+  { label: "Ghana", flag: "/images/flags/gh.png", href: "/locations/ghana" },
+  { label: "Kenya", flag: "/images/flags/ke.png", href: "/locations/kenya" },
 ];
 
 /* Brand social icons as inline SVG paths */
@@ -101,9 +101,9 @@ export default function Footer() {
             <h3 className="font-display text-lg font-bold text-white">Industries</h3>
             <ul className="mt-6 space-y-4">
               {industries.map((l) => (
-                <li key={l}>
-                  <Link href="#footer" className="text-[15px] text-white/70 transition-colors hover:text-brand">
-                    {l}
+                <li key={l.slug}>
+                  <Link href={`/industries/${l.slug}`} className="text-[15px] text-white/70 transition-colors hover:text-brand">
+                    {l.label}
                   </Link>
                 </li>
               ))}
@@ -116,7 +116,7 @@ export default function Footer() {
             <ul className="mt-6 space-y-4">
               {locations.map((l) => (
                 <li key={l.label}>
-                  <Link href="#footer" className="flex items-center gap-3 text-[15px] font-semibold text-white/80 transition-colors hover:text-brand">
+                  <Link href={l.href} className="flex items-center gap-3 text-[15px] font-semibold text-white/80 transition-colors hover:text-brand">
                     <Image src={l.flag} alt={`${l.label} flag`} width={26} height={18} className="rounded-[2px]" />
                     {l.label}
                   </Link>

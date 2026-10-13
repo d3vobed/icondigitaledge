@@ -33,7 +33,7 @@ export default function CtaBanner() {
             Ready to Grow Faster Than Your Competition?
           </h2>
           <Link
-            href="#contact"
+            href="/contact"
             className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#0b0b0b] pl-8 pr-2.5 py-2.5 font-medium text-white transition-transform duration-200 hover:-translate-y-0.5"
           >
             Get a Free Growth Audit

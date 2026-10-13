@@ -32,8 +32,8 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
           className="mt-12 flex flex-col items-center gap-5 sm:flex-row"
         >
-          <PillButton href="#works">See Our Work</PillButton>
-          <ArrowPillButton href="#contact">Book a Free Session</ArrowPillButton>
+          <PillButton href="/our-works">See Our Work</PillButton>
+          <ArrowPillButton href="/contact">Book a Free Session</ArrowPillButton>
         </motion.div>
       </div>
     </section>
